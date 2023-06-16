@@ -1,0 +1,6 @@
+.idea/
+.terraform/
+.DS_Store
+.terraform.lock.hcl
+*.tfstate
+*.pem

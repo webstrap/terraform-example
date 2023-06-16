@@ -1,0 +1,23 @@
+[
+  {
+    "name": "${service_name}-${environment}",
+    "image": "${ecr_repository}:LATEST",
+    "cpu": ${service_cpu},
+  "memoryReservation": ${service_memory_reservation},
+  "essential": true,
+  "portMappings": [
+  {
+    "containerPort": ${service_port},
+  "hostPort": 0
+  }
+],
+  "environment": ${environment_variables},
+  "logConfiguration": {
+  "logDriver": "awslogs",
+  "options": {
+    "awslogs-group": "${cloudwatch_log_group}",
+    "awslogs-region": "${region}"
+  }
+}
+  }
+]
