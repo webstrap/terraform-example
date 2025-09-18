@@ -1,4 +1,4 @@
-# terraform-example
+# Terraform Example
  
 ### Setup
 
@@ -19,19 +19,26 @@
      output = json
      ```
 
+Use AWS profiles to manage credentials for different AWS accounts
+Restrict allowed AWS accounts
+
 ## 0-INIT
 
-This creates an S3 bucket for the following Terraform configurations to store the state in the cloud.
-Usually terraform would create a local state file that is not shared with anyone else.
+- Creates S3 bucket for remote state storage with KMS encryption
+- Sets up DynamoDB table for state locking
+- Configured for eu-central-1 region
 
 ## 1-GLOBAL
 
-When using one AWS account for stage and production, create shared users, and a root zone namespace
-which is then used in each stage and production environment.
+- Manages Route53 DNS zones, IAM users, groups, and policies
+- Creates SSL certificates
+- Stores state as global.terraform.tfstate
+- Serves as the foundation for environment-specific deployments
+
+## 2-STAGE
+- Contains staging environment infrastructure
+- Includes VPC, EC2, load balancers, security groups
+- Has API services, S3 configurations, and WireGuard VPN
+- References global state for shared resources
 
 
-## TODO
- - Move most parts to modules
- - Move certificates from global to each environment
-   - Prod should create as well a DNS nameserver part added to the global zone
- - Generate Database passwords via Terraform
